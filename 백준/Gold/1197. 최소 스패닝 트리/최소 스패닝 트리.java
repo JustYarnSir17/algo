@@ -35,7 +35,7 @@ public class Main {
 		int cnt=0;
 		p=new int [v+1];
 		
-		for(int i=1;i<v;i++) {
+		for(int i=1;i<=v;i++) {
 			p[i]=i;
 		}
 		for(int i=0;i<e;i++) {
