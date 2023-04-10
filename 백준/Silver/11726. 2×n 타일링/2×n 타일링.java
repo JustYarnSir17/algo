@@ -3,25 +3,23 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 public class Main {
+	static int []arr;
+	static int n;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int n=Integer.parseInt(br.readLine());
-		int [] dp = new int [1001];
-		dp[1]=1;
-		dp[2]=2;
-		dp[3]=3;
-		for(int i=3;i<1001;i++) {
-			dp[i]=(dp[i-2]+dp[i-1])%10007;
+		n=Integer.parseInt(br.readLine());
+		arr = new int [10001];
+		arr[1]=1;
+		arr[2]=2;
+		for(int i=3;i<=1000;i++) {
+			arr[i]=(arr[i-1]+arr[i-2])%10007;
 		}
-		
-		bw.write(String.valueOf(dp[n]));
-		br.close();
+		bw.write(String.valueOf(arr[n]));
 		bw.close();
+		br.close();
 	}
+	
 }
