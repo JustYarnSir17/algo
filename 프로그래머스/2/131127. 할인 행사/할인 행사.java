@@ -2,6 +2,8 @@ import java.util.*;
 
 class Solution {
     public int solution(String[] want, int[] number, String[] discount) {
+        
+        //할인을 통해 모두 구매할 수 있는 회원 가입 날짜 모두 구하기
         int answer = 0;
         int count=0;
         
