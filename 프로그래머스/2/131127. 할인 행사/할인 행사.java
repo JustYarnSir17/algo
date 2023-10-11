@@ -28,7 +28,7 @@ class Solution {
         for(int i = 0; i < want.length; i++) {
             if(want[i].equals(str)) {
                 result = i;
-                return result;
+                // return result;
             }
         }
         return result;
