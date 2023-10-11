@@ -1,43 +1,61 @@
 import java.util.*;
 
 class Solution {
+    static String[] discount;
+    static String[] want;
+    static int[] number;
+    static int count;
     public int solution(String[] want, int[] number, String[] discount) {
-        
-        //할인을 통해 모두 구매할 수 있는 회원 가입 날짜 모두 구하기
         int answer = 0;
-        int count=0;
-        
-        HashMap<String, Integer> map = new HashMap<>();
-        
-        for(int i=0;i<want.length;i++){
-            map.put(want[i],number[i]);
-            count+=number[i];
-        }
-
-        int day =0;
-        int dd= discount.length;
-        
-        loop:
-        while(true){
-            HashMap<String,Integer> tmp = (HashMap<String,Integer>)map.clone();
-            int num = count;
-            for(int i=day;i<day+10;i++){
-                if(i>=dd)
-                    break loop;
-                if(tmp.containsKey(discount[i])){
-                    if(tmp.get(discount[i])>0){
-                        tmp.replace(discount[i],tmp.get(discount[i])-1);
-                        num--;
-                    }
-                }
+        this.discount = discount;
+        this.want = want;
+        this.number = number;
+        count = 0;
+        for(int i = 0; i <= discount.length-10; i ++) {
+            int temp = cnt(i);
+            if(temp == 10) {
+                
+                count ++;
             }
-            if(num<=0){
-                answer++;
-            }
-            day++;
+            
+        
         }
-        
-        
+        answer = count;
         return answer;
+    }
+    public static int check (String str) {
+        int result = -1;
+        for(int i = 0; i < want.length; i++) {
+            if(want[i].equals(str)) {
+                result = i;
+                return result;
+            }
+        }
+        return result;
+    }
+    public static int cnt(int index) {
+        String[] newWant = new String[want.length];
+        int[] newNumber = new int[number.length];
+        for(int i = 0; i < newWant.length; i++) {
+            newWant[i] = want[i];
+        }
+        for(int i = 0; i < newNumber.length; i++) {
+            newNumber[i] = number[i];
+        }
+        int num = 0;
+        for(int i = index; i < index+10; i++) {
+            int c = check(discount[i]);
+            if(c>-1) {
+                // num ++;
+                newNumber[c]--;
+                if(newNumber[c]<0) {
+                    return num;
+                }
+                num++;
+            } else {
+                return num;
+            }
+        }
+        return num;
     }
 }
