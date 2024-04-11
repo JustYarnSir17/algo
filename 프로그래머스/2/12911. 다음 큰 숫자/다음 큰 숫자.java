@@ -1,0 +1,29 @@
+import java.util.*;
+class Solution {
+    public int solution(int n) {
+        String str = Integer.toBinaryString(n);
+        int cnt=0;
+        int answer = 0;
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i)=='1'){
+                ++cnt;
+            }
+        }
+        
+        for(int i=n+1;i<=1000000;i++){
+            String tmp = Integer.toBinaryString(i);
+            int count=0;
+            for(int j=0;j<tmp.length();j++){
+                if(tmp.charAt(j)=='1'){
+                    ++count;
+                }
+            }
+            if(cnt==count){
+                answer=i;
+                break;
+            }
+        }
+        
+        return answer;
+    }
+}
