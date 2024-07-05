@@ -1,0 +1,1 @@
+select grade.score, grade.emp_no,employees.emp_name, employees.position, employees.email from (select emp_no,sum(score)as score from hr_grade group by emp_no) as grade join hr_employees as employees on grade.emp_no = employees.emp_no order by grade.score desc limit 1
