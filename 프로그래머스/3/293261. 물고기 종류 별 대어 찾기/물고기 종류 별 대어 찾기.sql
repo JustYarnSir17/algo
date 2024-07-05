@@ -1,0 +1,2 @@
+with fish as (select fish_type, fish_name, max(length) as length from fish_info natural join fish_name_info group by fish_name,fish_type)
+select id, fish_name, length from fish_info natural join fish order by id
