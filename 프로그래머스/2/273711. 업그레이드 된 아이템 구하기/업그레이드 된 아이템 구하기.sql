@@ -1,0 +1,2 @@
+with item as (select tree.item_id from (select item_id from item_info where rarity ='rare') as rarity join item_tree as tree on rarity.item_id = tree.parent_item_id)
+select a.item_id, a.item_name, a.rarity from item_info as a join item as b on a.item_id= b.item_id order by a.item_id desc
