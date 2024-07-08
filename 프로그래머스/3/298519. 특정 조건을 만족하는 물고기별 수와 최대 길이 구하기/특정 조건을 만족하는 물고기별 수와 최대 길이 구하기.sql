@@ -1,0 +1,1 @@
+select count(*) as fish_count,max(ifnull(length,10)) as max_length, a.fish_type from fish_info as a natural join (select fish_type from fish_info group by fish_type having avg(ifnull(length,10))>=33) as b group by a.fish_type order by a.fish_type asc
