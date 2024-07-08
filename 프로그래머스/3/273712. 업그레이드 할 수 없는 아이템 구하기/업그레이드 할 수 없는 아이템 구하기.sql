@@ -1,0 +1,1 @@
+select item.item_id, item.item_name, item.rarity from item_info as item join (select a.item_id from item_info as a left join item_tree as b on a.item_id = b.parent_item_id where b.item_id is null) as up on item.item_id= up.item_id order by item.item_id desc
