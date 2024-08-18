@@ -1,85 +1,74 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-	static char[] arr;
-	static int MAX = (int)Math.pow(2, 26);
-
-	static void pre(int t) throws IOException {
-		if (t <= MAX-1) {
-			if (arr[t] != '\0' && arr[t] != '.') {
-				bw.write(arr[t]);
-
-			}
-			pre(2 * t);
-			pre(2 * t + 1);
-		}
-	}
-
-	static void in(int t) throws IOException {
-		if (t <= MAX-1) {
-			in(2 * t);
-			if (arr[t] != '\0' && arr[t] != '.') {
-
-				bw.write(arr[t]);
-
-			}
-			in(2 * t + 1);
-		}
-	}
-
-	static void post(int t) throws IOException {
-		if (t <= MAX-1) {
-			post(2 * t);
-			post(2 * t + 1);
-			if (arr[t] != '\0' && arr[t] != '.') {
-
-				bw.write(arr[t]);
-			}
-		}
-	}
-
-	public static void main(String[] args) throws IOException {
-		int n = Integer.parseInt(br.readLine());
-
-		arr = new char[MAX];
-		arr[1] = 'A';
-		for (int i = 0; i < n; i++) {
-			String str = br.readLine();
-			char p = str.charAt(0);
-			char c1 = str.charAt(2);
-			char c2 = str.charAt(4);
-
-			for (int j = 1; j < MAX-1; j++) {
-				if (arr[j] == p) {
-					if (c1 != '.') {
-
-						arr[j * 2] = c1;
-					}
-					if (c2 != '.') {
-
-						arr[j * 2 + 1] = c2;
-					}
-				}
-
-			}
-
-		}
-		// 전위 순회: 부모 노드 방문후 좌우 자식
-		// 중위 순회: 왼쪽 자식 -> 부모-> 오른쪽 자식
-		// 후위 순회: 좌우 자식 -> 부모
-		pre(1);
-		bw.newLine();
-		in(1);
-		bw.newLine();
-		post(1);
-		bw.close();
-		br.close();
-	}
-
+    static StringBuilder sb;
+    static String[] arr;
+    
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        HashMap<String, Integer> map = new HashMap<>();
+        
+        int n = Integer.parseInt(br.readLine());
+        int MAX = (int)Math.pow(2, n); // 트리의 최대 크기 설정
+        arr = new String[MAX];
+        arr[1] = "A";
+        map.put("A", 1);
+        
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            String a = st.nextToken();
+            String b = st.nextToken();
+            String c = st.nextToken();
+            int idx = map.get(a);
+            if (!b.equals(".")) {
+                arr[idx * 2] = b;
+                map.put(b, idx * 2);
+            }
+            if (!c.equals(".")) {
+                arr[idx * 2 + 1] = c;
+                map.put(c, idx * 2 + 1);
+            }
+        }
+        
+        // 전위 순회: 루트 - 좌측 - 우측
+        sb = new StringBuilder();
+        preorder(1);
+        bw.write(sb.toString() + "\n");
+        
+        // 중위 순회: 좌측 - 루트 - 우측
+        sb = new StringBuilder();
+        inorder(1);
+        bw.write(sb.toString() + "\n");
+        
+        // 후위 순회: 좌측 - 우측 - 루트
+        sb = new StringBuilder();
+        postorder(1);
+        bw.write(sb.toString());
+        
+        bw.close();
+        br.close();
+    }
+    
+    public static void preorder(int idx) {
+        if (idx >= arr.length || arr[idx] == null) return;
+        sb.append(arr[idx]);
+        preorder(idx * 2);
+        preorder(idx * 2 + 1);
+    }
+    
+    public static void inorder(int idx) {
+        if (idx >= arr.length || arr[idx] == null) return;
+        inorder(idx * 2);
+        sb.append(arr[idx]);
+        inorder(idx * 2 + 1);
+    }
+    
+    public static void postorder(int idx) {
+        if (idx >= arr.length || arr[idx] == null) return;
+        postorder(idx * 2);
+        postorder(idx * 2 + 1);
+        sb.append(arr[idx]);
+    }
 }
