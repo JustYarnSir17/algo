@@ -34,9 +34,9 @@ public class Main {
         	}
         }
         int cost=Integer.MAX_VALUE;
-        loop:
-        for(int i=1;i<=n;i++) {
-        	for(int j=0;j<=10000;j++) {
+        
+        for(int j=0;j<=10000;j++) {
+        	for(int i=1;i<=n;i++) {
         		if(memory[i][j]>=m) {
         			if(cost>j) {
         				cost=j;
