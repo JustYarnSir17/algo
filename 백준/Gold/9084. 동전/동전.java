@@ -18,7 +18,6 @@ public class Main {
         		token[i]=tmp;
         		
         	}
-        	int m=Integer.parseInt(br.readLine());
         	for(int i=0;i<n;i++) {
         		amount[token[i]]++;
         		for(int j=1;j<=10000;j++) {
@@ -27,6 +26,7 @@ public class Main {
         			}
         		}
         	}
+        	int m=Integer.parseInt(br.readLine());
         	bw.write(amount[m]+"\n");
         }
         
