@@ -1,1 +1,1 @@
-select a.id,count(b.id) as child_count from ecoli_data as a left join ecoli_data as b on a.id=b.parent_id group by a.id order by a.id
+select e1.id, count(e2.id) as child_count from ecoli_data as e1 left join ecoli_data as e2 on e1.id =e2.parent_id group by e1.id order by 1
